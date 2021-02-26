@@ -224,7 +224,7 @@ public class hdfs_test {
 //
 //                rm(filesystem, "/tmp/ipaddr.txt", false);
 //                rm(filesystem, "/tmp/test*", true);
-                
+
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
