@@ -1,0 +1,69 @@
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://nn</value>
+    </property>
+    <property>
+        <name>dfs.nameservices</name>
+        <value>nn, ernn, ksnn</value>
+    </property>
+    <!-- my nn -->
+    <property>
+        <name>dfs.ha.namenodes.nn</name>
+        <value>nn1,nn2</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.nn.nn1</name>
+        <value>hdfs://hdm1.cdp.jh.io:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.nn.nn2</name>
+        <value>hdfs://hdm2.cdp.jh.io:8020</value>
+    </property>
+    <property>
+        <name>dfs.client.failover.proxy.provider.nn</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+    <!-- er nn -->
+    <property>
+        <name>dfs.ha.namenodes.ernn</name>
+        <value>nn1,nn2</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.ernn.nn1</name>
+        <value>hdfs://tt05nn001.hdp.local:50070</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.ernn.nn2</name>
+        <value>hdfs://tt05nn002.hdp.local:50070</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.ernn.nn1</name>
+        <value>hdfs://tt05nn001.hdp.local:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.ernn.nn2</name>
+        <value>hdfs://tt05nn002.hdp.local:8020</value>
+    </property>
+    <property>
+        <name>dfs.client.failover.proxy.provider.ernn</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+    <!-- ks nn -->
+    <property>
+        <name>dfs.ha.namenodes.ksnn</name>
+        <value>nn1,nn2</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.ksnn.nn1</name>
+        <value>hdfs://hdm1.cdp.datadynamics.io:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.ksnn.nn2</name>
+        <value>hdfs://hdm2.cdp.datadynamics.io:8020</value>
+    </property>
+    <property>
+        <name>dfs.client.failover.proxy.provider.ksnn</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+</configuration>
