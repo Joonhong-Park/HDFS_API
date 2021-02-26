@@ -11,6 +11,7 @@ import org.apache.hadoop.yarn.webapp.hamlet2.Hamlet;
 import sun.nio.ch.IOUtil;
 
 import javax.imageio.IIOException;
+import java.beans.Transient;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -59,6 +60,7 @@ public class hdfs_test {
 //        FileSystem fs = FileSystem.get(conf);
 //
 //        return fs;
+
         /**
          * core-site.xml 작성 후 사용방법
          */
@@ -148,7 +150,6 @@ public class hdfs_test {
      */
     public static void cp(FileSystem fs, String file_path, String dir_path) throws IOException{
         fs.copyToLocalFile(new Path(file_path), new Path(dir_path));
-
     }
 
     /**
@@ -161,11 +162,10 @@ public class hdfs_test {
         FSDataInputStream is = fs.open(new Path(file_path));
         IOUtils.copyBytes(is, System.out, 4096, false);
         IOUtils.closeStream(is);
-
     }
 
     /**
-     *
+     * 파일 권한 수정
      * @param fs getFileSystem으로 가져온 filesystem객체
      * @param file_path 읽을 파일 경로
      * @param perm 변경할 permission
@@ -173,11 +173,10 @@ public class hdfs_test {
      */
     public static void chmod(FileSystem fs, String file_path, String perm) throws IOException{
         fs.setPermission(new Path(file_path), new FsPermission(perm));
-
     }
 
     /**
-     *
+     * 파일 소유자 변경
      * @param fs getFileSystem으로 가져온 filesystem객체
      * @param file_path 읽을 파일 경로
      * @param own 변경할 username
@@ -186,19 +185,46 @@ public class hdfs_test {
      */
     public static void chown(FileSystem fs, String file_path, String own, String group) throws IOException{
         fs.setOwner(new Path(file_path), own, group);
-
     }
 
-    
+    /**
+     * 파일/디렉토리 삭제
+     * @param fs getFileSystem으로 가져온 filesystem객체
+     * @param file_path 삭제할 파일 경로
+     * @param recuresive true : 경로 내 모든 파일 삭제 (디렉토리 삭제), false : 해당 파일만 삭제
+     * @throws IOException
+     */
+    public static void rm(FileSystem fs, String file_path, boolean recuresive) throws IOException{
+        fs.delete(new Path(file_path), recuresive);
+    }
+
+
     public static void main(String[] args) throws Exception{
         UserGroupInformation ugi = UserGroupInformation.createRemoteUser("impala");
         ugi.doAs((PrivilegedAction<Integer>) () -> {
             try {
-                FileSystem filesystem = getFileSystem("ernn");
+                FileSystem filesystem = getFileSystem("nn");
+
+                ls(filesystem, "/");
+
 //                ls_pattern(filesystem, new Path("/????"));
-                  ls(filesystem, "/");
+//                ls_pattern(filesystem, new Path("/h*"));
+//
 //                makedir(filesystem, "/user/impala/test2");
-                //put(filesystem, "C:/Users/joonhong/Documents/ipaddr.txt", "/tmp/");
+//
+//                put(filesystem, "C:/Users/joonhong/Documents/ipaddr.txt", "/tmp/");
+//
+//                cp(filesystem, "/tmp/ipaddr.txt", "C:/");
+//
+//                cat(filesystem, "/tmp/ipaddr.txt");
+//
+//                chmod(filesystem, "/tmp/ipaddr.txt", "755");
+//
+//                chown(filesystem, "/tmp/ipaddr.txt", "hdfs", "supergroup");
+//
+//                rm(filesystem, "/tmp/ipaddr.txt", false);
+//                rm(filesystem, "/tmp/test*", true);
+                
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
