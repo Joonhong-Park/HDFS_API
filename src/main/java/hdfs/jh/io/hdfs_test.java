@@ -188,7 +188,7 @@ public class hdfs_test {
     }
 
     /**
-     * 파일/디렉토리 삭제
+     * 파일 디렉토리 삭제 ( -skipTrash 가 포함된 기능 )
      * @param fs getFileSystem으로 가져온 filesystem객체
      * @param file_path 삭제할 파일 경로
      * @param recuresive true : 경로 내 모든 파일 삭제 (디렉토리 삭제), false : 해당 파일만 삭제
